@@ -1,0 +1,30 @@
+{
+  "name": "flight-booking",
+  "version": "1.0.0",
+  "description": "node projrct",
+  "main": "index.js",
+  "scripts": {
+    "test": "tst",
+    "dev": "npx nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jassi329/flight-booking-system.git"
+  },
+  "keywords": [
+    "booking"
+  ],
+  "author": "jaskaran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jassi329/flight-booking-system/issues"
+  },
+  "homepage": "https://github.com/jassi329/flight-booking-system#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "http-status-codes": "^2.3.0",
+    "nodemon": "^3.1.14",
+    "winston": "^3.19.0"
+  }
+}
