@@ -16,30 +16,10 @@ services -> contains the buiss logic and interact with ripositories for data fro
 
 utils -> contains helper methods, error, classes etc.''
 
-inside the 'src/config' folder create a file name 'config.json' and write the following codes
-{
-  "development": {
-    "username": "root",
-    "password": "mypassword",
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
-}
+go inside the 'src' folder and execute the commands 
+...
+  npx sequelize init
+...
 
 if youre setting up your devel envior, then write the name of your db and pass of db and in direct mention of whatever db you are using ex: mysql, mariadb 
 if youre setting up test or prd env, make sure you replace the 
