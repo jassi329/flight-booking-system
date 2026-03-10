@@ -1,5 +1,7 @@
 const { where } = require("sequelize");
 const { logger } = require("../config");
+const AppError = require("../utils/errors/app-error");
+const { StatusCodes } = require("http-status-codes");
 
 class CrudRepository {
     constructor(model) {
@@ -13,59 +15,35 @@ class CrudRepository {
     }
 
     async destroy(data){
-        try{
-            const response = await this.model.destroy({
-                 where: {
-                    id: data
-                }
-            });
-            return response;
-        }
-        catch(error){
-            logger.error('something went wrong in the cruf repo: destroy')
-            throw error;
-        }
-        
-    }
+        const response = await this.model.destroy({
+            where: {
+                id: data
+            }
+        });
+        return response;
+    } 
 
     async get(data){
-        try{
-            const response = await this.model.findByPK(data);
-            return response;
+        const response = await this.model.findByPk(data);
+        if(!response){
+            throw new AppError('Not able to find the resource', StatusCodes.NOT_FOUND);
         }
-        catch(error){
-            logger.error('something went wrong in the cruf repo: get')
-            throw error;
-        }
+        return response;
         
     }
 
     async getAll(){
-        try{
-            const response = await this.model.findAll();
-            return response;
-        }
-        catch(error){
-            logger.error('something went wrong in the cruf repo: getAll')
-            throw error;
-        }
-        
+        const response = await this.model.findAll();
+        return response;
     }
 
     async update(id,data){
-        try{
             const response = await this.model.update(data, {
                 where: {
                     id: id
                 }
         })
             return response;
-        }
-        catch(error){
-            logger.error('something went wrong in the cruf repo: update')
-            throw error;
-        }
-        
     }
 }
 
