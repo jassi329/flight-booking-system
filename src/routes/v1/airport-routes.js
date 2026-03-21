@@ -13,7 +13,7 @@ router.get('/',
         AirportController.getAirports);
 
 router.get('/:id',
-        AirportController.getAirports);
+        AirportController.getAirport);
 
 router.delete('/:id',
         AirportController.destroyAirport);
