@@ -15,9 +15,13 @@ async function createAirplane(req, res) {
                 .json(SuccessResponse)
     }
     catch(error){
-        ErrorResponse.error = error;
+        ErrorResponse.error = {
+            message: error.message || 'An unexpected error occurred',
+            // If you use an explanation array in AppError, add this too:
+            explanation: error.explanation || [] 
+        };
         return res
-                .status(error.statusCode)
+                .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
                 .json(ErrorResponse);
     }
 }
@@ -30,9 +34,13 @@ async function getAirplanes(req, res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse);
     } catch (error) {
-        ErrorResponse.error = error;
+        ErrorResponse.error = {
+            message: error.message || 'An unexpected error occurred',
+            // If you use an explanation array in AppError, add this too:
+            explanation: error.explanation || [] 
+        };
         return res  
-                .status(error.statusCode)
+                .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
                 .json(ErrorResponse)
     }
 }
@@ -45,9 +53,13 @@ async function getAirplane(req, res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse);
     } catch (error) {
-        ErrorResponse.error = error;
+        ErrorResponse.error = {
+            message: error.message || 'An unexpected error occurred',
+            // If you use an explanation array in AppError, add this too:
+            explanation: error.explanation || [] 
+        };
         return res  
-                .status(error.statusCode)
+                .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
                 .json(ErrorResponse)
     }
 }
@@ -60,9 +72,13 @@ async function destroyAirplane(req, res){
                 .status(StatusCodes.OK)
                 .json(SuccessResponse);
     } catch (error) {
-        ErrorResponse.error = error;
+        ErrorResponse.error = {
+            message: error.message || 'An unexpected error occurred',
+            // If you use an explanation array in AppError, add this too:
+            explanation: error.explanation || [] 
+        };
         return res  
-                .status(error.statusCode)
+                .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
                 .json(ErrorResponse)
     }
 }

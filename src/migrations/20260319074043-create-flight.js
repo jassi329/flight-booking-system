@@ -22,12 +22,12 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
-      departurAirportId: {
+      departureAirportId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Airplanes',
-          field: 'code',
+          model: 'Airports',
+          field: 'id',
         },
         onDelete: 'CASCADE',
       },
@@ -35,8 +35,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Airplanes',
-          field: 'code',
+          model: 'Airports',
+          field: 'id',
         },
         onDelete: 'CASCADE',
       },
