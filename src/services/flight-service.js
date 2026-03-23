@@ -1,13 +1,23 @@
 const { StatusCodes } = require('http-status-codes'); 
-
+const { Op } = require('sequelize');
 const { FlightRepository, AirportRepository } = require('../respositories');
 const airportRepository = new AirportRepository();
 const AppError = require('../utils/errors/app-error');
 
 const flightRepository = new FlightRepository();
 
+//utility
+const { compareTime } = require('../utils/helpers/datetime-helper')
+
 async function createFlight(data) {
     try{ 
+
+        if (!compareTime(data.arrivalTime, data.departureTime)) {
+            throw new AppError(
+                'Arrival time must be strictly greater than departure time', 
+                StatusCodes.BAD_REQUEST
+            );
+        }
 
         const departureAirport = await airportRepository.getAirportByCode(data.departureAirportId);
         if (!departureAirport) {
@@ -48,7 +58,60 @@ async function createFlight(data) {
     }
 }
 
+async function getAllFlights(query) {
+    let customFilter = {};
+    const endingTripTime = "23:59:00"
+    let sortFilter = [];
+    //tripes = MUM-DEL
+    if(query.trips){
+        let [departureAirportCode, arrivalAirportCode] = query.trips.split("-");
+
+        const departureAirport = await airportRepository.getAirportByCode(departureAirportCode);
+        const arrivalAirport = await airportRepository.getAirportByCode(arrivalAirportCode);
+
+        if (!departureAirport || !arrivalAirport) {
+             throw new AppError('One or both airport codes are invalid', StatusCodes.BAD_REQUEST);
+        }
+
+        customFilter.departureAirportId = departureAirport.id;
+        customFilter.arrivalAirportId = arrivalAirport.id;
+        //TODO: addimg a check they do not same
+
+    }
+    if(query.price){
+        [minPrice, maxPrice] = query.price.split("-");
+        customFilter.price = {
+            [Op.between]: [minPrice, ((maxPrice == undefined) ? 20000: maxPrice)]
+        }
+    }
+    if(query.travellers){
+        customFilter.totalSeats = {
+            [Op.gte]: query.travellers
+        }
+    }
+    if(query.tripDate){
+        customFilter.departureTime = {
+            [Op.between]: [query.tripDate, query.tripDate + endingTripTime]
+        }
+    }
+    if(query.sort) {
+        const params = query.sort.split(",");
+        const sortFilters = params.map((params) => params.split('_'));
+        sortFilter = sortFilters
+    }
+    try {
+        const flights = await flightRepository.getAllFlights(customFilter);
+        return flights;
+    } catch (error) {
+        if (error.statusCode === StatusCodes.BAD_REQUEST) {
+            throw error;
+        }
+        throw new AppError('cannot fetch data of all the flights', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+
+}
+
 module.exports = {
     createFlight,
-
+    getAllFlights
 }
