@@ -79,7 +79,7 @@ async function getAllFlights(query) {
 
     }
     if(query.price){
-        [minPrice, maxPrice] = query.price.split("-");
+        let [minPrice, maxPrice] = query.price.split("-");
         customFilter.price = {
             [Op.between]: [minPrice, ((maxPrice == undefined) ? 20000: maxPrice)]
         }
@@ -91,7 +91,7 @@ async function getAllFlights(query) {
     }
     if(query.tripDate){
         customFilter.departureTime = {
-            [Op.between]: [query.tripDate, query.tripDate + endingTripTime]
+            [Op.between]: [query.tripDate, query.tripDate + " " + endingTripTime]
         }
     }
     if(query.sort) {
@@ -100,7 +100,7 @@ async function getAllFlights(query) {
         sortFilter = sortFilters
     }
     try {
-        const flights = await flightRepository.getAllFlights(customFilter);
+        const flights = await flightRepository.getAllFlights(customFilter, sortFilter);
         return flights;
     } catch (error) {
         if (error.statusCode === StatusCodes.BAD_REQUEST) {
