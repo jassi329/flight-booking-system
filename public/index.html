@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">Flight Booking System</p>
+            <h1>Operations Dashboard</h1>
+        </div>
+        <div class="api-tools">
+            <label>
+                API URL
+                <input id="apiBaseUrl" placeholder="Same site or https://your-api.onrender.com">
+            </label>
+            <button id="saveApiBase" type="button">Save</button>
+            <div class="status" id="apiStatus">Checking API...</div>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="panel search-panel">
+            <div class="section-title">
+                <div>
+                    <p class="eyebrow">Search</p>
+                    <h2>Available Flights</h2>
+                </div>
+                <button class="icon-button" id="refreshFlights" title="Refresh flights">Refresh</button>
+            </div>
+
+            <form id="flightSearchForm" class="grid-form">
+                <label>
+                    Route
+                    <input name="trips" placeholder="MUM-DEL">
+                </label>
+                <label>
+                    Price Range
+                    <input name="price" placeholder="1000-8000">
+                </label>
+                <label>
+                    Travellers
+                    <input name="travellers" type="number" min="1" placeholder="2">
+                </label>
+                <label>
+                    Trip Date
+                    <input name="tripDate" type="date">
+                </label>
+                <label>
+                    Sort
+                    <select name="sort">
+                        <option value="">Default</option>
+                        <option value="price_ASC">Price low to high</option>
+                        <option value="price_DESC">Price high to low</option>
+                        <option value="departureTime_ASC">Earliest departure</option>
+                    </select>
+                </label>
+                <button type="submit">Search Flights</button>
+            </form>
+
+            <div class="flight-results" id="flightResults"></div>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <div>
+                    <p class="eyebrow">Create</p>
+                    <h2>Add Flight</h2>
+                </div>
+            </div>
+            <form id="createFlightForm" class="grid-form">
+                <label>Flight Number <input name="flightNumber" required placeholder="AI-202"></label>
+                <label>Airplane ID <input name="airplaneId" type="number" required placeholder="1"></label>
+                <label>From Code <input name="departureAirportId" required placeholder="MUM"></label>
+                <label>To Code <input name="arrivalAirportId" required placeholder="DEL"></label>
+                <label>Departure <input name="departureTime" type="datetime-local" required></label>
+                <label>Arrival <input name="arrivalTime" type="datetime-local" required></label>
+                <label>Price <input name="price" type="number" required placeholder="4500"></label>
+                <label>Total Seats <input name="totalSeats" type="number" required placeholder="180"></label>
+                <label>Boarding Gate <input name="boardingGate" placeholder="A4"></label>
+                <button type="submit">Create Flight</button>
+            </form>
+        </section>
+
+        <section class="panel management">
+            <div>
+                <p class="eyebrow">Manage</p>
+                <h2>Master Data</h2>
+            </div>
+
+            <form id="createAirplaneForm" class="stack-form">
+                <h3>Airplane</h3>
+                <input name="modelNumber" required placeholder="boeing777">
+                <input name="capacity" type="number" placeholder="450">
+                <button type="submit">Add Airplane</button>
+            </form>
+
+            <form id="createCityForm" class="stack-form">
+                <h3>City</h3>
+                <input name="name" required placeholder="Mumbai">
+                <button type="submit">Add City</button>
+            </form>
+
+            <form id="createAirportForm" class="stack-form">
+                <h3>Airport</h3>
+                <input name="name" required placeholder="Indira Gandhi International">
+                <input name="code" required placeholder="DEL">
+                <input name="address" placeholder="New Delhi">
+                <input name="cityId" type="number" required placeholder="City ID">
+                <button type="submit">Add Airport</button>
+            </form>
+        </section>
+
+        <aside class="panel response-panel">
+            <div>
+                <p class="eyebrow">Response</p>
+                <h2>API Output</h2>
+            </div>
+            <pre id="apiOutput">No request yet.</pre>
+        </aside>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>

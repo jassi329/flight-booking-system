@@ -1,0 +1,273 @@
+:root {
+    --bg: #f5f7fb;
+    --panel: #ffffff;
+    --ink: #172033;
+    --muted: #667085;
+    --line: #d9e0ea;
+    --accent: #0f766e;
+    --accent-dark: #115e59;
+    --danger: #b42318;
+    --shadow: 0 14px 40px rgba(23, 32, 51, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 32px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--line);
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+h1 {
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 20px;
+    line-height: 1.25;
+}
+
+h3 {
+    font-size: 15px;
+}
+
+.eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.status {
+    min-width: 140px;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 14px;
+    background: #f8fafc;
+}
+
+.api-tools {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) 78px auto;
+    align-items: end;
+    gap: 10px;
+}
+
+.api-tools label {
+    min-width: 0;
+}
+
+.status.ok {
+    color: var(--accent-dark);
+    border-color: #99d8cf;
+    background: #ecfdf9;
+}
+
+.status.fail {
+    color: var(--danger);
+    border-color: #f4b5ae;
+    background: #fff4f2;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.9fr);
+    gap: 20px;
+    padding: 24px 32px 36px;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.search-panel {
+    grid-row: span 2;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.grid-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.stack-form {
+    display: grid;
+    gap: 10px;
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px solid var(--line);
+}
+
+label {
+    display: grid;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+input, select, button {
+    width: 100%;
+    min-height: 42px;
+    border-radius: 6px;
+    font: inherit;
+}
+
+input, select {
+    border: 1px solid var(--line);
+    padding: 9px 11px;
+    color: var(--ink);
+    background: #ffffff;
+}
+
+input:focus, select:focus {
+    outline: 2px solid rgba(15, 118, 110, 0.18);
+    border-color: var(--accent);
+}
+
+button {
+    border: 0;
+    padding: 10px 14px;
+    color: #ffffff;
+    background: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--accent-dark);
+}
+
+.icon-button {
+    width: auto;
+    min-width: 92px;
+}
+
+.flight-results {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.flight-card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px;
+    background: #fbfcfe;
+}
+
+.flight-card header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.flight-number {
+    font-weight: 800;
+}
+
+.price {
+    color: var(--accent-dark);
+    font-weight: 800;
+}
+
+.flight-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.management {
+    align-self: start;
+}
+
+.response-panel {
+    grid-column: 1 / -1;
+}
+
+pre {
+    min-height: 180px;
+    margin: 16px 0 0;
+    padding: 16px;
+    overflow: auto;
+    border-radius: 8px;
+    color: #dbeafe;
+    background: #101828;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.empty {
+    padding: 18px;
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+    color: var(--muted);
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .api-tools {
+        width: 100%;
+        grid-template-columns: 1fr;
+    }
+
+    .layout {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 620px) {
+    .grid-form,
+    .flight-meta {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
